@@ -17,9 +17,11 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->foreignId('catID')->constrained('categories', 'id');
             $table->foreignId('unitID')->constrained('units', 'id');
+            $table->string('vendor')->nullable();
             $table->float('pprice');
             $table->float('price');
             $table->float('wsprice');
+            $table->float('volume');
             $table->float('tp')->default(0);
             $table->float('discount')->default(0);
             $table->timestamps();

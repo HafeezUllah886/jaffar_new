@@ -124,7 +124,22 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-8"></div>
+                                    <div class="col-8">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p class="text-muted mb-0 text-uppercase fw-semibold">Transporter</p>
+                                                <h5 class="fs-14 mb-2">{{$purchase->transporter->name}}</h5>
+                                                <p class="text-muted mb-0 text-uppercase fw-semibold">Bilty No.</p>
+                                                <h5 class="fs-14 mb-2">{{$purchase->bilty}}</h5>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="text-muted mb-0 text-uppercase fw-semibold">Driver Name</p>
+                                                <h5 class="fs-14 mb-2">{{$purchase->driver}}</h5>
+                                                <p class="text-muted mb-0 text-uppercase fw-semibold">Vehicle No.</p>
+                                                <h5 class="fs-14 mb-2">{{$purchase->vehicle}}</h5>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="col-4">
                                         @php
                                             $amount = $purchase->details->sum('amount');

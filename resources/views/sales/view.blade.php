@@ -52,72 +52,96 @@
                         </div><!--end col-->
                         <div class="col-lg-12">
                             <div class="card-body p-4">
-                                <div class="table-responsive">
-                                    <table class="table table-borderless text-center table-nowrap align-middle mb-0">
-                                        <thead>
-                                            <tr class="table-active">
-                                                <th scope="col" style="width: 50px;">#</th>
-                                                <th scope="col" class="text-start">Code</th>
-                                                <th scope="col" class="text-start">Product</th>
-                                                <th scope="col" class="text-end">Unit</th>
-                                                <th scope="col" class="text-end">Qty</th>
-                                                <th scope="col" class="text-end">Bonus</th>
-                                                <th scope="col" class="text-end">Price</th>
-                                                <th scope="col" class="text-end">Discount</th>
-                                                <th scope="col" class="text-end">Tax (Inc)</th>
-                                                <th scope="col" class="text-end">RP</th>
-                                                <th scope="col" class="text-end">GST {{$sale->details[0]->gst}}%</th>
-                                            </tr>
-                                        </thead>
-
-                                        <tbody id="products-list">
-                                            @php
-                                                $totalQty = 0;
-                                                $totalBonus = 0;
-                                                $discount= 0;
-                                                $totalRP = 0;
-                                            @endphp
-                                           @foreach ($sale->details as $key => $product)
-                                                @php
-                                                        $discount += $product->qty * $product->discount;
-                                                        $qty = $product->qty / $product->unitValue;
-                                                    $totalQty += $qty;
-                                                    $totalBonus += $product->bonus;
-                                                    $totalRP += $product->tp * ($qty + $product->bonus);
+                               <div class="row">
+                                    <div class="col-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-borderless text-center table-nowrap align-middle mb-0">
+                                                <thead>
+                                                    <tr class="table-active">
+                                                        <th scope="col" style="width: 50px;">#</th>
+                                                        <th scope="col" class="text-start">Code</th>
+                                                        <th scope="col" class="text-start">Product</th>
+                                                        <th scope="col" class="text-end">Unit</th>
+                                                        <th scope="col" class="text-end">Qty</th>
+                                                        <th scope="col" class="text-end">Bonus</th>
+                                                        <th scope="col" class="text-end">Price</th>
+                                                        <th scope="col" class="text-end">Discount</th>
+                                                        <th scope="col" class="text-end">Tax (Inc)</th>
+                                                        <th scope="col" class="text-end">RP</th>
+                                                        <th scope="col" class="text-end">GST {{$sale->details[0]->gst}}%</th>
+                                                    </tr>
+                                                </thead>
+        
+                                                <tbody id="products-list">
+                                                    @php
+                                                        $totalQty = 0;
+                                                        $totalBonus = 0;
+                                                        $discount= 0;
+                                                        $totalRP = 0;
+                                                    @endphp
+                                                @foreach ($sale->details as $key => $product)
+                                                        @php
+                                                                $discount += $product->qty * $product->discount;
+                                                                $qty = $product->qty / $product->unitValue;
+                                                            $totalQty += $qty;
+                                                            $totalBonus += $product->bonus;
+                                                            $totalRP += $product->tp * ($qty + $product->bonus);
+                                                        @endphp
+                                                    <tr class="border-1 border-dark">
+                                                        <td class="m-1 p-1 border-1 border-dark">{{$key+1}}</td>
+                                                        <td class="text-start m-1 p-1 border-1 border-dark">{{$product->product->code}}</td>
+                                                        <td class="text-start m-1 p-1 border-1 border-dark">{{$product->product->name}}</td>
+                                                        <td class="text-end m-1 p-1 border-1 border-dark">{{$product->unit->name}}</td>
+                                                        <td class="text-end m-1 p-1 border-1 border-dark">{{number_format($product->qty / $product->unitValue)}}</td>
+                                                        <td class="text-end m-1 p-1 border-1 border-dark">{{number_format($product->bonus)}}</td>
+                                                        <td class="text-end m-1 p-1 border-1 border-dark">{{number_format($product->price, 2)}}</td>
+                                                        <td class="text-end m-1 p-1 border-1 border-dark">{{number_format($product->discount, 2)}}</td>
+                                                        <td class="text-end m-1 p-1 border-1 border-dark">{{number_format($product->ti, 2)}}</td>
+                                                        <td class="text-end m-1 p-1 border-1 border-dark">{{number_format($product->tp, 2)}}</td>
+                                                        <td class="text-end m-1 p-1 border-1 border-dark">{{number_format($product->gstValue, 2)}}</td>
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                                <tfoot>
+                                                    @php
+                                                    $totalDisc = $sale->details->sum('discount');
+                                                    $totalTi = $sale->details->sum('ti');
+                                                    $totalGstVal = $sale->details->sum('gstValue');
+                                                    $due = $sale->net - $sale->payments->sum('amount');
+                                                    $paid = $sale->payments->sum('amount');
                                                 @endphp
-                                               <tr class="border-1 border-dark">
-                                                <td class="m-1 p-1 border-1 border-dark">{{$key+1}}</td>
-                                                <td class="text-start m-1 p-1 border-1 border-dark">{{$product->product->code}}</td>
-                                                <td class="text-start m-1 p-1 border-1 border-dark">{{$product->product->name}}</td>
-                                                <td class="text-end m-1 p-1 border-1 border-dark">{{$product->unit->name}}</td>
-                                                <td class="text-end m-1 p-1 border-1 border-dark">{{number_format($product->qty / $product->unitValue)}}</td>
-                                                <td class="text-end m-1 p-1 border-1 border-dark">{{number_format($product->bonus)}}</td>
-                                                <td class="text-end m-1 p-1 border-1 border-dark">{{number_format($product->price, 2)}}</td>
-                                                <td class="text-end m-1 p-1 border-1 border-dark">{{number_format($product->discount, 2)}}</td>
-                                                <td class="text-end m-1 p-1 border-1 border-dark">{{number_format($product->ti, 2)}}</td>
-                                                <td class="text-end m-1 p-1 border-1 border-dark">{{number_format($product->tp, 2)}}</td>
-                                                <td class="text-end m-1 p-1 border-1 border-dark">{{number_format($product->gstValue, 2)}}</td>
-                                               </tr>
-                                           @endforeach
-                                        </tbody>
-                                        <tfoot>
-                                            @php
-                                                $totalDisc = $sale->details->sum('discount');
-                                                $totalTi = $sale->details->sum('ti');
-                                                $totalGstVal = $sale->details->sum('gstValue');
-                                                $due = $sale->net - $sale->payments->sum('amount');
-                                                $paid = $sale->payments->sum('amount');
-                                            @endphp
-                                            <tr class="border-1 border-dark">
-                                                <th colspan="4" class="text-end">Total</th>
-                                                <th class="text-end">{{number_format($totalQty)}}</th>
-                                                <th class="text-end">{{number_format($totalBonus)}}</th>
-                                                <th></th>
-                                                <th class="text-end">{{number_format($discount,2)}}</th>
-                                                <th class="text-end">{{number_format($totalTi,2)}}</th>
-                                                <th class="text-end"></th>
-                                                <th class="text-end">{{number_format($totalGstVal,2)}}</th>
-                                            </tr>
+                                                <tr class="border-1 border-dark">
+                                                    <th colspan="4" class="text-end">Total</th>
+                                                    <th class="text-end">{{number_format($totalQty)}}</th>
+                                                    <th class="text-end">{{number_format($totalBonus)}}</th>
+                                                    <th></th>
+                                                    <th class="text-end">{{number_format($discount,2)}}</th>
+                                                    <th class="text-end">{{number_format($totalTi,2)}}</th>
+                                                    <th class="text-end"></th>
+                                                    <th class="text-end">{{number_format($totalGstVal,2)}}</th>
+                                                </tr>
+                                                </tfoot>
+                                            
+                                            </table><!--end table-->
+                                        </div>
+                                    </div>
+                               </div>
+                               <div class="row">
+                                <div class="col-8">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <p class="text-muted mb-0 text-uppercase fw-semibold">Delivery Man</p>
+                                            <h5 class="fs-14 mb-2">{{$sale->deliveryman->name}}</h5>
+                                        </div>
+                                        <div class="col-6">
+                                            <p class="text-muted mb-0 text-uppercase fw-semibold">Contact No.</p>
+                                            <h5 class="fs-14 mb-2">{{$sale->deliveryman->contact}}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <table class="table w-100">
+                                        <tbody>
                                             <tr class="m-0 p-0">
                                                 <th colspan="10" class="text-end p-0 m-0">Tax Exclusive</th>
                                                 <th class="text-end p-0 m-0">{{number_format($totalTi - $totalGstVal,2)}}</th>
@@ -166,15 +190,16 @@
                                                 <th colspan="10" class="text-end p-0 m-0">Net Account Balance</th>
                                                 <th class="text-end p-0 m-0">{{number_format(spotBalance($sale->customerID, $sale->refID),2)}}</th>
                                             </tr>
-                                        </tfoot>
-                                    </table><!--end table-->
+                                        </tbody>
+                                    </table>
                                 </div>
+                               </div>
                             </div>
                             <div class="card-footer">
                                 @if ($sale->notes != "")
                                 <p><strong>Notes: </strong>{{$sale->notes}}</p>
                                 @endif
-                               <p class="text-center urdu"><strong>نوٹ: مال آپ کے آرڈر کے مطابق بھیجا جا رہا ہے۔ مال ایکسپائر یا خراب ہونے کی صورت میں واپس نہیں لیا جائے گا۔ دکاندار سیلزمین کے ساتھ کسی قسم کے ذاتی لین دین کا ذمہ دار خود ہوگا۔</strong></p>
+                               <p class="text-center urdu"><strong>نوٹ: برائے کرم انوائس کی ادائیگی کے وقت اپنے اسٹاک کی تسلی کریں۔ بجلی فیل ہونے کی صورت میں خراب سامان کی واپسی ممکن نہیں اپنے اسٹاک کی خود حفاظت کریں۔</strong></p>
 
                             </div>
                             <!--end card-body-->

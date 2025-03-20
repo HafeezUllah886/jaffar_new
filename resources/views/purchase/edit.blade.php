@@ -181,7 +181,42 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-12 mt-2">
+                            <div class="col-6 mt-2">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="transporter">Transporter</label>
+                                            <select name="transporterID" id="transporter" class="selectize1">
+                                                @foreach ($transporters as $transporter)
+                                                    <option value="{{ $transporter->id }}" @selected($transporter->id == $purchase->transporterID)>{{ $transporter->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="bilty">Bilty No.</label>
+                                            <input type="text" name="bilty" value="{{$purchase->bilty}}" id="bilty" 
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mt-2">
+                                        <div class="form-group">
+                                            <label for="driver">Driver Name</label>
+                                            <input type="text" name="driver" value="{{$purchase->driver}}" id="driver" 
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mt-2">
+                                        <div class="form-group">
+                                            <label for="vehicle">Vehcle No.</label>
+                                            <input type="text" name="vehicle" value="{{$purchase->vehicle}}" id="vehicle" 
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 mt-2">
                                 <div class="form-group">
                                     <label for="notes">Notes</label>
                                     <textarea name="notes" id="notes" class="form-control" cols="30" rows="5">{{$purchase->notes}}</textarea>

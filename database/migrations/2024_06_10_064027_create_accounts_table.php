@@ -15,12 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('type');
+            $table->string('c_type')->default('Other');
             $table->string('category')->nullable();
             $table->string('cnic')->nullable();
             $table->string('contact')->nullable();
             $table->string('address')->nullable();
             $table->string('ntn')->nullable();
             $table->string('strn')->nullable();
+            $table->string('hidf')->nullable();
             $table->timestamps();
         });
     }

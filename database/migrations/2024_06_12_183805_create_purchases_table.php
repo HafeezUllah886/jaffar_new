@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
             $table->foreignId('vendorID')->constrained('accounts', 'id');
+           
             $table->date('date');
             $table->float("wh")->default(0);
             $table->float('whValue')->default(0);
@@ -23,6 +24,10 @@ return new class extends Migration
             $table->text('notes')->nullable();
             $table->string("inv")->nullable();
             $table->float('net')->default(0);
+            $table->foreignId('transporterID')->constrained('transporters', 'id');
+            $table->string('driver')->nullable();
+            $table->string('vehicle')->nullable();
+            $table->string('bilty')->nullable();
             $table->bigInteger('refID');
             $table->timestamps();
         });

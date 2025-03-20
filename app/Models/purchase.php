@@ -24,4 +24,9 @@ class purchase extends Model
     {
         return $this->hasMany(purchase_payments::class, 'purchaseID');
     }
+
+    public function transporter()
+    {
+        return $this->belongsTo(transporter::class, 'transporterID');
+    }
 }

@@ -30,4 +30,9 @@ class sales extends Model
     {
         return $this->belongsTo(User::class, 'orderbookerID');
     }
+
+    public function deliveryman()
+    {
+        return $this->belongsTo(deliveryman::class, 'deliverymanID');
+    }
 }

@@ -60,6 +60,7 @@ class AccountsController extends Controller
                             'address' => $request->address,
                             'ntn' => $request->ntn,
                             'strn' => $request->strn,
+                            'hidf' => $request->hidf,
                             'c_type' => $request->c_type,
                         ]
                     );
@@ -147,6 +148,7 @@ class AccountsController extends Controller
                 'address' => $request->address ?? null,
                 'ntn' => $request->ntn ?? null,
                 'strn' => $request->strn ?? null,
+                'hidf' => $request->hidf ?? null,
                 'c_type' => $request->c_type,
             ]
         );

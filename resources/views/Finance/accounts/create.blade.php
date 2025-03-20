@@ -97,6 +97,13 @@
                                         class="form-control">
                                 </div>
                             </div>
+                            <div class="col-6 mt-2 customer" >
+                                <div class="form-group">
+                                    <label for="hidf">HIDF #</label>
+                                    <input type="text" name="hidf" id="hidf" value="{{ old('hidf') }}"
+                                        class="form-control">
+                                </div>
+                            </div>
                             <div class="col-12 mt-2">
                                 <div class="form-group">
                                     <label for="initial">Initial Amount</label>

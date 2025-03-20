@@ -9,6 +9,7 @@ use App\Models\purchase_details;
 use App\Models\purchase_payments;
 use App\Models\stock;
 use App\Models\transactions;
+use App\Models\transporter;
 use App\Models\units;
 use Exception;
 use Illuminate\Http\Request;
@@ -37,7 +38,8 @@ class PurchaseController extends Controller
         $units = units::all();
         $vendors = accounts::vendor()->get();
         $accounts = accounts::business()->get();
-        return view('purchase.create', compact('products', 'units', 'vendors', 'accounts'));
+        $transporters = transporter::all();
+        return view('purchase.create', compact('products', 'units', 'vendors', 'accounts', 'transporters'));
     }
 
     /**
@@ -64,6 +66,10 @@ class PurchaseController extends Controller
                   'fright1'          => $request->fright1,
                   'wh'              => $request->whTax,
                   'inv'             => $request->inv,
+                  'transporterID'   => $request->transporterID,
+                  'driver'          => $request->driver,
+                  'vehicle'         => $request->vehicle,
+                  'bilty'           => $request->bilty,
                   'refID'           => $ref,
                 ]
             );
@@ -174,7 +180,8 @@ class PurchaseController extends Controller
         $units = units::all();
         $vendors = accounts::vendor()->get();
         $accounts = accounts::business()->get();
-        return view('purchase.edit', compact('products', 'units', 'vendors', 'accounts', 'purchase'));
+        $transporters = transporter::all();
+        return view('purchase.edit', compact('products', 'units', 'vendors', 'accounts', 'purchase', 'transporters'));
     }
 
     /**
@@ -211,6 +218,10 @@ class PurchaseController extends Controller
                     'fright1'          => $request->fright1,
                     'wh'              => $request->whTax,
                     'inv'             => $request->inv,
+                    'transporterID'   => $request->transporterID,
+                    'driver'          => $request->driver,
+                    'vehicle'         => $request->vehicle,
+                    'bilty'           => $request->bilty,
                   ]
             );
 

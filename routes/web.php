@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\dashboardController;
+use App\Http\Controllers\DeliverymanController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\TransporterController;
 use App\Http\Controllers\UnitsController;
 use App\Http\Middleware\adminCheck;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +26,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('units', UnitsController::class)->middleware(adminCheck::class);
     Route::resource('categories', CategoriesController::class)->middleware(adminCheck::class);
     Route::resource('product', ProductsController::class)->middleware(adminCheck::class);
+
+    Route::resource('transporter', TransporterController::class);
+    Route::resource('deliveryman', DeliverymanController::class);
 
 });
 

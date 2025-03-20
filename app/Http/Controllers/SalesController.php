@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\accounts;
+use App\Models\deliveryman;
 use App\Models\orders;
 use App\Models\products;
 use App\Models\sale_details;
@@ -47,7 +48,8 @@ class SalesController extends Controller
         $customers = accounts::customer()->get();
         $accounts = accounts::business()->get();
         $orderbookers = User::where('role', 'Orderbooker')->get();
-        return view('sales.create', compact('products', 'units', 'customers', 'accounts', 'orderbookers'));
+        $deliverymen = deliveryman::all();
+        return view('sales.create', compact('products', 'units', 'customers', 'accounts', 'orderbookers', 'deliverymen'));
     }
 
     /**
@@ -74,6 +76,7 @@ class SalesController extends Controller
                   'fright1'      => $request->fright1,
                   'wh'          => $request->whTax ?? 0,
                   'orderbookerID'  => $request->orderbookerID,
+                  'deliverymanID' => $request->deliverymanID,
                   'refID'       => $ref,
                 ]
             );
@@ -201,7 +204,8 @@ class SalesController extends Controller
         $customers = accounts::customer()->get();
         $accounts = accounts::business()->get();
         $orderbookers = User::where('role', 'Orderbooker')->get();
-        return view('sales.edit', compact('products', 'units', 'customers', 'accounts', 'sale', 'orderbookers'));
+        $deliverymen = deliveryman::all();
+        return view('sales.edit', compact('products', 'units', 'customers', 'accounts', 'sale', 'orderbookers', 'deliverymen'));
     }
 
     /**
@@ -235,6 +239,7 @@ class SalesController extends Controller
                     'fright1'      => $request->fright1,
                     'wh'          => $request->whTax,
                     'orderbookerID'  => $request->orderbookerID,
+                    'deliverymanID' => $request->deliverymanID,
                     'refID'       => $ref,
                   ]
             );

@@ -17,6 +17,7 @@
                             @if ($filter == 'Customer')
                                 <th>NTN</th>
                                 <th>STRN</th>
+                                <th>HIDF</th>
                             @endif
                             <th>Current Balance</th>
                             <th>Action</th>
@@ -32,6 +33,7 @@
                                     @if ($filter == 'Customer')
                                         <td>{{ $account->ntn }}</td>
                                         <td>{{ $account->strn }}</td>
+                                        <td>{{ $account->hidf }}</td>
                                     @endif
                                     <td>{{ number_format(getAccountBalance($account->id)) }}</td>
                                     <td>
@@ -51,7 +53,7 @@
                                                 <li>
                                                     <a class="dropdown-item" href="{{route('account.edit', $account->id)}}">
                                                         <i class="ri-pencil-fill align-bottom me-2 text-muted"></i>
-                                                        Edits
+                                                        Edit
                                                     </a>
                                                 </li>
 

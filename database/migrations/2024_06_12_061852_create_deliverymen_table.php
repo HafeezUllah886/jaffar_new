@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->float("wh")->default(0);
-            $table->float('whValue')->default(0);
+        Schema::create('deliverymen', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('contact')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -22,9 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->dropColumn('wh');
-            $table->dropColumn('whValue');
-        });
+        Schema::dropIfExists('deliverymen');
     }
 };

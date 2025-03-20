@@ -93,6 +93,13 @@
                                         class="form-control">
                                 </div>
                             </div>
+                            <div class="col-6 mt-2 customer" >
+                                <div class="form-group">
+                                    <label for="hidf">HIDF #</label>
+                                    <input type="text" name="hidf" id="hidf" value="{{ $account->hidf }}"
+                                        class="form-control">
+                                </div>
+                            </div>
                             @endif
 
                             <div class="col-12 mt-3">

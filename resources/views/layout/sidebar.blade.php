@@ -291,6 +291,16 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{ route('transporter.index') }}" >
+                        <i class="ri-apps-2-line"></i> <span data-key="t-apps">Transporters</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{ route('deliveryman.index') }}" >
+                        <i class="ri-apps-2-line"></i> <span data-key="t-apps">Delivery Men</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="{{ route('targets.index') }}" >
                         <i class="ri-apps-2-line"></i> <span data-key="t-apps">Targets</span>
                     </a>

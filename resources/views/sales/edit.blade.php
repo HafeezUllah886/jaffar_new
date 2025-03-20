@@ -156,7 +156,7 @@
                                     <input type="number" name="net" id="net" step="any" readonly value="0" class="form-control">
                                 </div>
                             </div>
-                            <div class="col-3">
+                            <div class="col-2">
                                 <div class="form-group">
                                     <label for="date">Date</label>
                                     <input type="date" name="date" id="date" value="{{ date('Y-m-d', strtotime($sale->date)) }}"
@@ -174,7 +174,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-3">
+                            <div class="col-2">
                                 <div class="form-group">
                                     <label for="account">Account</label>
                                     <select name="accountID" id="account" class="selectize1">
@@ -184,12 +184,22 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-3">
+                            <div class="col-2">
                                 <div class="form-group">
                                     <label for="status">Payment Status</label>
                                     <select name="status" id="status" class="selectize1">
                                         <option value="paid">Paid</option>
                                         <option value="pending">Pending</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="deliveryman">Delivery Man</label>
+                                    <select name="deliverymanID" id="deliveryman" class="selectize1">
+                                        @foreach ($deliverymen as $deliveryman)
+                                            <option value="{{ $deliveryman->id }}" @selected($deliveryman->id == $sale->deliverymanID)>{{ $deliveryman->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>

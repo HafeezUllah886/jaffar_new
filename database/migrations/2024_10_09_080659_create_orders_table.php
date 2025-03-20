@@ -18,6 +18,8 @@ return new class extends Migration
             $table->date('date');
             $table->integer('saleID')->nullable();
             $table->float('net')->default(0);
+            $table->float("wh")->default(0);
+            $table->float('whValue')->default(0);
             $table->string('status')->default('Pending');
             $table->text('notes')->nullable();
             $table->timestamps();
