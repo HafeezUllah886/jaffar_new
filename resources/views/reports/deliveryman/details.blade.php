@@ -7,7 +7,7 @@
                         <div class="col-lg-12">
                             <div class="hstack gap-2 justify-content-end d-print-none p-2 mt-4">
                                 <a href="https://web.whatsapp.com/" target="_blank" class="btn btn-success ml-4"><i class="ri-whatsapp-line mr-4"></i> Whatsapp</a>
-                                <a href="{{route('reportSalesGstPrint', ['from' => $from, 'to' => $to])}}" class="btn btn-success ml-4"><i class="ri-printer-line mr-4"></i> Print</a>
+                                <a href="{{ route('reportDeliverymanPrint', [$from, $to, $deliveryman->id]) }}" class="btn btn-success ml-4"><i class="ri-printer-line mr-4"></i> Print</a>
                             </div>
                             <div class="card-header border-bottom-dashed p-4">
                                 <div class="d-flex">
@@ -15,7 +15,7 @@
                                         <h1>{{projectName()}}</h1>
                                     </div>
                                     <div class="flex-shrink-0 mt-sm-0 mt-3">
-                                        <h3>Sales GST Report</h3>
+                                        <h3>Delivery Man Report</h3>
                                     </div>
                                 </div>
                             </div>
@@ -31,6 +31,10 @@
                                     <div class="col-lg-3 col-6">
                                         <p class="text-muted mb-2 text-uppercase fw-semibold">To</p>
                                         <h5 class="fs-14 mb-0">{{ date('d M Y', strtotime($to)) }}</h5>
+                                    </div>
+                                    <div class="col-lg-3 col-6">
+                                        <p class="text-muted mb-2 text-uppercase fw-semibold">Delivery Man</p>
+                                        <h5 class="fs-14 mb-0">{{ $deliveryman->name }}</h5>
                                     </div>
                                     <!--end col-->
                                     <!--end col-->
@@ -51,67 +55,33 @@
                                     <table class="table table-borderless text-center table-nowrap align-middle mb-0" id="datatables">
                                         <thead>
                                             <tr class="table-active">
-                                                <th scope="col" style="width: 50px;">Inv #</th>
+                                                <th scope="col" style="width: 50px;">#</th>
                                                 <th scope="col" class="text-start">Customer Name</th>
-                                                <th scope="col">CNIC #</th>
-                                                <th scope="col">NTN #</th>
-                                                <th scope="col">STRN #</th>
-                                                <th scope="col">Bill Date</th>
-                                                <th scope="col">Tax Exc</th>
-                                                <th scope="col">Bill Amount (RP)</th>
-                                                <th scope="col" class="text-end">GST (18%)</th>
-                                                <th scope="col" class="text-end">Qty</th>
+                                                <th scope="col" class="text-start">Order Booker</th>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Amount</th>
                                             </tr>
                                         </thead>
-                                        <tbody >
-                                            @php
-                                                $totalTi = 0;
-                                                $totalGst = 0;
-                                                $totalQty = 0;
-                                                $totalTe = 0;
-                                                $totalBA = 0;
-                                            @endphp
-                                        @foreach ($sales as $key => $item)
-                                        @php
-                                        $ti = $item->details->sum('ti');
-                                        $gst = $item->details->sum('gstValue');
-                                        $qty = $item->details->sum('qty');
-                                        $bonus = $item->details->sum('bonus');
-                                        $ba = $item->totalBill;
-                                        $te = $ti - $gst;
-                                        $totalTi += $ti;
+                                        <tbody>
 
-                                        $totalQty += ($qty + $bonus);
-                                        $totalTe += $te;
-                                        $totalBA += $ba;
-                                        $totalGst += $gst;
-                                        @endphp
+                                        @foreach ($sales as $key => $item)
                                             <tr>
                                                 <td>{{ $item->id}}</td>
                                                 <td class="text-start">{{ $item->customer->title }}</td>
-                                                <td >{{ $item->customer->cnic ?? "-" }}</td>
-                                                <td >{{ $item->customer->ntn ?? "-" }}</td>
-                                                <td >{{ $item->customer->strn ?? "-" }}</td>
+                                                <td class="text-start">{{ $item->orderbooker->name }}</td>
                                                 <td>{{ date("d M Y", strtotime($item->date))}}</td>
-                                                <td class="text-end">{{ number_format($te, 2) }}</td>
-                                                <td class="text-end">{{ number_format($ba, 2) }}</td>
-                                                <td class="text-end">{{ number_format($gst, 2) }}</td>
-                                                <td class="text-end">{{ number_format($qty + $bonus, 2) }}</td>
+                                                <td class="text-end">{{ number_format($item->net, 2) }}</td>
                                             </tr>
                                         @endforeach
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th colspan="6" class="text-end">Total</th>
-                                                <th class="text-end">{{number_format($totalTe, 2)}}</th>
-                                                <th class="text-end">{{number_format($totalBA, 2)}}</th>
-                                                <th class="text-end">{{number_format($totalBA * 18 / 100, 2)}}</th>
-                                                <th class="text-end">{{number_format($totalQty, 2)}}</th>
+                                                <th colspan="4" class="text-end">Total</th>
+                                                <th class="text-end">{{number_format($sales->sum('net'), 2)}}</th>
                                             </tr>
                                         </tfoot>
                                     </table><!--end table-->
                                 </div>
-
                             </div>
                             <!--end card-body-->
                         </div><!--end col-->
@@ -122,7 +92,6 @@
             <!--end col-->
         </div>
         <!--end row-->
-
 @endsection
 @section('page-css')
 <link rel="stylesheet" href="{{ asset('assets/libs/datatable/datatable.bootstrap5.min.css') }}" />
@@ -143,7 +112,6 @@
     <script src="{{ asset('assets/libs/datatable/jszip.min.js')}}"></script>
 
     <script src="{{ asset('assets/js/pages/datatables.init.js') }}"></script>
-
     <script>
         $('#datatables').DataTable({
     responsive: false,
@@ -162,46 +130,19 @@
         };
 
         // Total for Tax Exc column
-        var totalTaxExc = api
-            .column(6, { search: 'applied' })
-            .data()
-            .reduce(function (a, b) {
-                return intVal(a) + intVal(b);
-            }, 0);
-
-        // Total for Bill Amount (RP) column
-        var totalBillAmount = api
-            .column(7, { search: 'applied' })
-            .data()
-            .reduce(function (a, b) {
-                return intVal(a) + intVal(b);
-            }, 0);
-
-        // Total for GST (18%) column
-        var totalGst = api
-            .column(8, { search: 'applied' })
-            .data()
-            .reduce(function (a, b) {
-                return intVal(a) + intVal(b);
-            }, 0);
-
-        // Total for Qty column
-        var totalQty = api
-            .column(9, { search: 'applied' })
+        var totalTaxExc1 = api
+            .column(4, { search: 'applied' })
             .data()
             .reduce(function (a, b) {
                 return intVal(a) + intVal(b);
             }, 0);
 
         // Update the footer
-        $(api.column(6).footer()).html(totalTaxExc.toFixed(2));
-        $(api.column(7).footer()).html(totalBillAmount.toFixed(2));
-        $(api.column(8).footer()).html(totalGst.toFixed(2));
-        $(api.column(9).footer()).html(totalQty.toFixed(2));
+        $(api.column(4).footer()).html(totalTaxExc1.toFixed(2));
+       
     },
 });
     </script>
 @endsection
-
 
 

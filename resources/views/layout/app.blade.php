@@ -41,19 +41,19 @@
                         <div class="navbar-brand-box horizontal-logo">
                             <a href="{{route('dashboard')}}" class="logo logo-dark">
                                 <span class="logo-sm">
-                                    <h3 class="text-white">JB</h3>
+                                    <h3 class="text-white">{{projectShortName()}}</h3>
                                 </span>
                                 <span class="logo-lg">
-                                    <h3 class="text-white mt-3">JAFFAR & BROTHERS</h3>
+                                    <h3 class="text-white mt-3">{{projectName()}}</h3>
                                 </span>
                             </a>
                             <!-- Light Logo-->
                             <a href="{{route('dashboard')}}" class="logo logo-light">
                                 <span class="logo-sm">
-                                    <h3 class="text-white">JB</h3>
+                                    <h3 class="text-white">{{projectShortName()}}</h3>
                                 </span>
                                 <span class="logo-lg">
-                                    <h3 class="text-white mt-3">JAFFAR & BROTHERS</h3>
+                                    <h3 class="text-white mt-3">{{projectName()}}</h3>
                                 </span>
                             </a>
                         </div>

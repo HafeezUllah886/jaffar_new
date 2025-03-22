@@ -159,3 +159,21 @@ function calculateGrowthPercentage($oldValue, $newValue) {
     $growthPercentage = (($newValue - $oldValue) / $oldValue) * 100;
     return $growthPercentage;
 }
+
+function ml_to_ltr($ml) {
+    if($ml < 1000) {
+        return $ml . " ml";
+    }
+    return $ml / 1000 . " ltr";
+}
+
+
+function projectName()
+{
+    return "JAFFAR MARKETING";
+}
+
+function projectShortName()
+{
+    return "JM";
+}

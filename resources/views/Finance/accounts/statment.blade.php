@@ -12,7 +12,7 @@
                             <div class="card-header border-bottom-dashed p-4">
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
-                                        <h1>JAFFAR & BROTHERS</h1>
+                                        <h1>{{projectName()}}</h1>
 
                                     </div>
                                     <div class="flex-shrink-0 mt-sm-0 mt-3">

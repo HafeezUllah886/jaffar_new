@@ -11,7 +11,7 @@
                                         <h1>{{projectName()}}</h1>
                                     </div>
                                     <div class="flex-shrink-0 mt-sm-0 mt-3">
-                                        <h3>Customer Wise Product Report</h3>
+                                        <h3>Delivery Man Report</h3>
                                     </div>
                                 </div>
                             </div>
@@ -29,8 +29,8 @@
                                         <h5 class="fs-14 mb-0">{{ date('d M Y', strtotime($to)) }}</h5>
                                     </div>
                                     <div class="col-lg-3 col-6">
-                                        <p class="text-muted mb-2 text-uppercase fw-semibold">Customer</p>
-                                        <h5 class="fs-14 mb-0">{{ $customer->title }}</h5>
+                                        <p class="text-muted mb-2 text-uppercase fw-semibold">Delivery Man</p>
+                                        <h5 class="fs-14 mb-0">{{ $deliveryman->name }}</h5>
                                     </div>
                                     <!--end col-->
                                     <!--end col-->
@@ -52,38 +52,28 @@
                                         <thead>
                                             <tr class="table-active">
                                                 <th scope="col" style="width: 50px;">#</th>
-                                                <th scope="col" class="text-start">Product</th>
-                                                <th scope="col" class="text-start">Avg Price</th>
-                                                <th scope="col" class="text-start">Avg TP</th>
-                                                <th scope="col" class="text-start">Qty Sold</th>
-                                                <th scope="col" class="text-start">Bonus</th>
-                                                <th scope="col" class="text-start">Discounts</th>
-                                                <th scope="col">Total GST</th>
-                                                <th scope="col">Total Amount</th>
+                                                <th scope="col" class="text-start">Customer Name</th>
+                                                <th scope="col" class="text-start">Order Booker</th>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Amount</th>
                                             </tr>
                                         </thead>
-                                        <tbody >
+                                        <tbody>
 
-                                        @foreach ($salesDetails as $key => $product)
+                                        @foreach ($sales as $key => $item)
                                             <tr>
-                                                <td>{{ $key+1}}</td>
-                                                <td class="text-start">{{ $product->product->name }}</td>
-                                                <td class="text-start">{{ number_format($product->avg_price,2) }}</td>
-                                                <td class="text-start">{{ number_format($product->avg_tp,2) }}</td>
-                                                <td class="text-start">{{ number_format($product->total_qty) }}</td>
-                                                <td class="text-start">{{ number_format($product->total_bonus) }}</td>
-                                                <td class="text-end">{{ number_format($product->total_discount) }}</td>
-                                                <td class="text-end">{{ number_format($product->total_gst, 2) }}</td>
-                                                <td class="text-end">{{ number_format($product->total_ti, 2) }}</td>
+                                                <td>{{ $item->id}}</td>
+                                                <td class="text-start">{{ $item->customer->title }}</td>
+                                                <td class="text-start">{{ $item->orderbooker->name }}</td>
+                                                <td>{{ date("d M Y", strtotime($item->date))}}</td>
+                                                <td class="text-end">{{ number_format($item->net, 2) }}</td>
                                             </tr>
                                         @endforeach
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th colspan="6" class="text-end">Total</th>
-                                                <th class="text-end">{{number_format($salesDetails->sum('total_discount'), 2)}}</th>
-                                                <th class="text-end">{{number_format($salesDetails->sum('total_gst'), 2)}}</th>
-                                                <th class="text-end">{{number_format($salesDetails->sum('total_ti'), 2)}}</th>
+                                                <th colspan="4" class="text-end">Total</th>
+                                                <th class="text-end">{{number_format($sales->sum('net'), 2)}}</th>
                                             </tr>
                                         </tfoot>
                                     </table><!--end table-->

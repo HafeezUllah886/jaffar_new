@@ -64,6 +64,8 @@
                                                         <th scope="col" class="text-end">Unit</th>
                                                         <th scope="col" class="text-end">Qty</th>
                                                         <th scope="col" class="text-end">Bonus</th>
+                                                        <th scope="col" class="text-end">P-Vol</th>
+                                                        <th scope="col" class="text-end">T-Vol</th>
                                                         <th scope="col" class="text-end">Price</th>
                                                         <th scope="col" class="text-end">Discount</th>
                                                         <th scope="col" class="text-end">Tax (Inc)</th>
@@ -78,6 +80,7 @@
                                                         $totalBonus = 0;
                                                         $discount= 0;
                                                         $totalRP = 0;
+                                                        $totalML = 0;
                                                     @endphp
                                                 @foreach ($sale->details as $key => $product)
                                                         @php
@@ -86,6 +89,8 @@
                                                             $totalQty += $qty;
                                                             $totalBonus += $product->bonus;
                                                             $totalRP += $product->tp * ($qty + $product->bonus);
+                                                            $tQty = $qty + $product->bonus;
+                                                            $totalML += $tQty * $product->product->volume;
                                                         @endphp
                                                     <tr class="border-1 border-dark">
                                                         <td class="m-1 p-1 border-1 border-dark">{{$key+1}}</td>
@@ -94,6 +99,8 @@
                                                         <td class="text-end m-1 p-1 border-1 border-dark">{{$product->unit->name}}</td>
                                                         <td class="text-end m-1 p-1 border-1 border-dark">{{number_format($product->qty / $product->unitValue)}}</td>
                                                         <td class="text-end m-1 p-1 border-1 border-dark">{{number_format($product->bonus)}}</td>
+                                                        <td class="text-end m-1 p-1 border-1 border-dark">{{ml_to_ltr($product->product->volume)}}</td>
+                                                        <td class="text-end m-1 p-1 border-1 border-dark">{{ml_to_ltr($tQty * $product->product->volume)}}</td>
                                                         <td class="text-end m-1 p-1 border-1 border-dark">{{number_format($product->price, 2)}}</td>
                                                         <td class="text-end m-1 p-1 border-1 border-dark">{{number_format($product->discount, 2)}}</td>
                                                         <td class="text-end m-1 p-1 border-1 border-dark">{{number_format($product->ti, 2)}}</td>
@@ -114,6 +121,8 @@
                                                     <th colspan="4" class="text-end">Total</th>
                                                     <th class="text-end">{{number_format($totalQty)}}</th>
                                                     <th class="text-end">{{number_format($totalBonus)}}</th>
+                                                    <th></th>
+                                                    <th class="text-end">{{ml_to_ltr($totalML)}}</th>
                                                     <th></th>
                                                     <th class="text-end">{{number_format($discount,2)}}</th>
                                                     <th class="text-end">{{number_format($totalTi,2)}}</th>

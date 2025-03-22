@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CustomerProductReportController;
+use App\Http\Controllers\reports\DeliverymanReportController;
 use App\Http\Controllers\reports\profitController;
 use App\Http\Controllers\reports;
 use App\Http\Controllers\reports\balanceSheetReport;
@@ -20,6 +21,7 @@ use App\Http\Controllers\reports\salesGstReportController;
 use App\Http\Controllers\reports\salesManReportController;
 use App\Http\Controllers\reports\salesReportController;
 use App\Http\Controllers\reports\salesWHTReportController as ReportsSalesWHTReportController;
+use App\Http\Controllers\reports\TransporterReportController;
 use App\Http\Controllers\salesWHTReportController;
 use App\Http\Middleware\adminCheck;
 use Illuminate\Support\Facades\Route;
@@ -88,4 +90,12 @@ Route::middleware('auth', adminCheck::class)->group(function () {
     Route::get('/reports/orderbooker', [OrderbookerReportController::class, 'index'])->name('reportOrderbooker');
     Route::get('/reports/orderbooker/details/{from}/{to}/{orderbooker}', [OrderbookerReportController::class, 'data'])->name('reportOrderbookerData');
     Route::get('/reports/orderbooker/print/{from}/{to}/{orderbooker}', [OrderbookerReportController::class, 'print'])->name('reportOrderbookerPrint');
+
+    Route::get('/reports/transporter', [TransporterReportController::class, 'index'])->name('reportTransporter');
+    Route::get('/reports/transporterData/{from}/{to}/{transporter}', [TransporterReportController::class, 'data'])->name('reportTransporterData');
+    Route::get('/reports/transporterPrint/{from}/{to}/{transporter}', [TransporterReportController::class, 'print'])->name('reportTransporterPrint');
+
+    Route::get('/reports/deliveryman', [DeliverymanReportController::class, 'index'])->name('reportDeliveryman');
+    Route::get('/reports/deliverymanData/{from}/{to}/{deliveryman}', [DeliverymanReportController::class, 'data'])->name('reportDeliverymanData');
+    Route::get('/reports/deliverymanPrint/{from}/{to}/{deliveryman}', [DeliverymanReportController::class, 'print'])->name('reportDeliverymanPrint');
 });

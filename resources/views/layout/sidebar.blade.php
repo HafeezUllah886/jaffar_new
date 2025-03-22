@@ -4,19 +4,19 @@
         <!-- Dark Logo-->
         <a href="{{route('dashboard')}}" class="logo logo-dark">
             <span class="logo-sm">
-                <h3 class="text-white">JB</h3>
+                <h3 class="text-white">{{projectShortName()}}</h3>
             </span>
             <span class="logo-lg">
-                <h3 class="text-white mt-3">JAFFAR & BROTHERS</h3>
+                <h3 class="text-white mt-3">{{projectName()}}</h3>
             </span>
         </a>
         <!-- Light Logo-->
         <a href="{{route('dashboard')}}" class="logo logo-light">
             <span class="logo-sm">
-                <h3 class="text-white">JB</h3>
+                <h3 class="text-white">{{projectShortName()}}</h3>
             </span>
             <span class="logo-lg">
-                <h3 class="text-white mt-3">JAFFAR & BROTHERS</h3>
+                <h3 class="text-white mt-3">{{projectName()}}</h3>
             </span>
         </a>
         <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover"
@@ -281,6 +281,14 @@
                             <li class="nav-item">
                                 <a href="{{ route('reportCustomerProducts') }}" class="nav-link"
                                     data-key="t-basic-elements">Customer Products</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('reportTransporter') }}" class="nav-link"
+                                    data-key="t-basic-elements">Transporters</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('reportDeliveryman') }}" class="nav-link"
+                                    data-key="t-basic-elements">Delivery Man</a>
                             </li>
                         </ul>
                     </div>
