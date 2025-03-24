@@ -24,6 +24,7 @@
                             <th>#</th>
                             <th>Code</th>
                             <th>Name</th>
+                            <th>Volume</th>
                             <th>Category</th>
                             <th>Vendor</th>
                             <th>Unit</th>
@@ -40,6 +41,7 @@
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $item->code }}</td>
                                     <td>{{ $item->name }}</td>
+                                    <td>{{ $item->volume }}</td>
                                     <td>{{ $item->category->name }}</td>
                                     <td>{{ $item->vendor }}</td>
                                     <td>{{ $item->unit->name }}</td>
@@ -76,6 +78,12 @@
                                                         <label for="name">Name</label>
                                                         <input type="text" name="name" required
                                                             value="{{ $item->name }}" id="name"
+                                                            class="form-control">
+                                                    </div>
+                                                    <div class="form-group mt-2">
+                                                        <label for="volume">Volume</label>
+                                                        <input type="number" name="volume" required
+                                                            value="{{ $item->volume }}" id="volume"
                                                             class="form-control">
                                                     </div>
                                                     <div class="form-group mt-2">
@@ -172,6 +180,10 @@
                         <div class="form-group mt-2">
                             <label for="name">Name</label>
                             <input type="text" name="name" required id="name" class="form-control">
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="volume">Volume</label>
+                            <input type="number" name="volume" required id="volume" class="form-control">
                         </div>
                         <div class="form-group mt-2">
                             <label for="catID">Category</label>
