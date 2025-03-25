@@ -58,6 +58,9 @@
                                         <option value="Karyana Store">Karyana Store</option>
                                         <option value="Medical Store">Medical Store</option>
                                         <option value="Bakery Shop">Bakery Shop</option>
+                                        <option value="Restaurant">Restaurant</option>
+                                        <option value="Hotel">Hotel</option>
+                                        <option value="Club">Club</option>
                                         <option value="Other">Other</option>
                                     </select>
                                 </div>

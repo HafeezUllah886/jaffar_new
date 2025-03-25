@@ -13,7 +13,7 @@
                     </div>
                     <div class="form-group mt-2">
                         <label for="to">To</label>
-                                <input type="date" name="to" id="to" value="{{lastDayOfMonth()}}" class="form-control">
+                        <input type="date" name="to" id="to" value="{{lastDayOfMonth()}}" class="form-control">
                     </div>
                     <div class="form-group mt-2">
                         <label for="c_type">Customer Category</label>
@@ -24,6 +24,12 @@
                             <option value="Wholeseller">Wholeseller</option>
                             <option value="Super Mart">Super Mart</option>
                             <option value="Sub Dealer">Sub Dealer</option>
+                            <option value="Karyana Store">Karyana Store</option>
+                            <option value="Medical Store">Medical Store</option>
+                            <option value="Bakery Shop">Bakery Shop</option>
+                            <option value="Restaurant">Restaurant</option>
+                            <option value="Hotel">Hotel</option>
+                            <option value="Club">Club</option>
                             <option value="Other">Other</option>
                         </select>
                     </div>
@@ -34,13 +40,9 @@
             </div>
         </div>
     </div>
-
-
 @endsection
 @section('page-js')
-
     <script>
-
         $("#viewBtn").on("click", function (){
             var from = $("#from").val();
             var to = $("#to").val();

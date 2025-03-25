@@ -54,6 +54,9 @@
                                         <option value="Karyana Store" @selected($account->c_type == "Karyana Store")>Karyana Store</option>
                                         <option value="Medical Store" @selected($account->c_type == "Medical Store")>Medical Store</option>
                                         <option value="Bakery Shop" @selected($account->c_type == "Bakery Shop")>Bakery Shop</option>
+                                        <option value="Restaurant" @selected($account->c_type == "Restaurant")>Restaurant</option>
+                                        <option value="Hotel" @selected($account->c_type == "Hotel")>Hotel</option>
+                                        <option value="Club" @selected($account->c_type == "Club")>Club</option>
                                         <option value="Other" @selected($account->c_type == "Other")>Other</option>
                                     </select>
                                 </div>

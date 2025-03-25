@@ -18,7 +18,6 @@
                             </ul>
                         </div>
                     @endif
-
                     <table class="table" id="buttons-datatables">
                         <thead>
                             <th>#</th>
@@ -152,7 +151,6 @@
                                         </div><!-- /.modal-content -->
                                     </div><!-- /.modal-dialog -->
                                 </div><!-- /.modal -->
-
                             @endforeach
                         </tbody>
                     </table>
@@ -161,7 +159,6 @@
         </div>
     </div>
     <!-- Default Modals -->
-
     <div id="new" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
         style="display: none;">
         <div class="modal-dialog">
