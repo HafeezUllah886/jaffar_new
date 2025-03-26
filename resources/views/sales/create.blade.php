@@ -14,9 +14,8 @@
                     </div>
                 </div><!--end row-->
                 <div class="card-body">
-
                         <div class="row">
-                            <div class="col-9">
+                            <div class="col-8">
                                 <div class="form-group">
                                     <label for="product">Product</label>
                                     <select name="product" class="selectize" id="product">
@@ -35,6 +34,13 @@
                                         <label for="code">Code (Shortcut key : F2)</label>
                                         <input type="text" class="form-control" id="code">
                                     </form>
+                                </div>
+                            </div>
+                            <div class="col-1">
+                                <div class="form-group">
+                                    <label for="product">.</label>
+                                    <input type="checkbox" class="btn-check" id="ws" value="ws" autocomplete="off">
+                                    <label class="btn btn-outline-info w-100" for="ws">WS</label><br>
                                 </div>
                             </div>
                         </div>
@@ -211,6 +217,7 @@
         var existingProducts = [];
 
         function getSingleProduct(id) {
+            var ws = $("#ws").is(':checked');
             $.ajax({
                 url: "{{ url('sales/getproduct/') }}/" + id,
                 method: "GET",
@@ -219,19 +226,24 @@
                         return element === product.id;
                     });
                     if (found.length > 0) {
-
                     } else {
                         var id = product.id;
+                        if(ws){
+                            var price = product.wsprice;
+                        }
+                        else{
+                            var price = product.price;
+                        }
                         var html = '<tr id="row_' + id + '">';
                         html += '<td class="no-padding">' + product.name + '</td>';
-                        html += '<td class="no-padding"><div class="input-group">  <span class="input-group-text" id="stockValue_'+id+'">'+product.stock +'</span><input type="number" max="'+product.stock+'" name="qty[]" oninput="updateChanges(' + id +')" min="0" required step="any" value="1" class="form-control text-center" id="qty_' + id + '"></div></td>';
+                        html += '<td class="no-padding"><div class="input-group"><span class="input-group-text" id="stockValue_'+id+'">'+product.stock +'</span><input type="number" max="'+product.stock+'" name="qty[]" oninput="updateChanges(' + id +')" min="0" required step="any" value="1" class="form-control text-center" id="qty_' + id + '"></div></td>';
                         html += '<td class="no-padding"><select name="unit[]" class="form-control text-center" onchange="updateChanges(' + id +')" id="unit_' + id + '">';
                             units.forEach(function(unit) {
                                 var isSelected = (unit.id == product.unitID);
                                 html += '<option data-unit="'+unit.value+'" value="' + unit.id + '" ' + (isSelected ? 'selected' : '') + '>' + unit.name + '</option>';
                             });
                         html += '</select></td>';
-                        html += '<td class="no-padding"><input type="number" name="price[]" oninput="updateChanges(' + id + ')" required step="any" value="'+product.price+'" min="0" class="form-control text-center" id="price_' + id + '"></td>';
+                        html += '<td class="no-padding"><input type="number" name="price[]" oninput="updateChanges(' + id + ')" required step="any" value="'+price+'" min="0" class="form-control text-center" id="price_' + id + '"></td>';
                         html += '<td class="no-padding"><input type="number" name="discount[]" oninput="updateChanges(' + id + ')" required step="any" value="'+product.discount+'" min="0" class="form-control text-center" id="discount_' + id + '"><input type="hidden" step="any" value="'+product.discount+'" id="packdiscount_' + id + '"></td>';
                         html += '<td class="no-padding"><input type="number" name="ti[]" required step="any" value="0.00" min="0" class="form-control text-center" id="ti_' + id + '"></td>';
                         html += '<td class="no-padding"><input type="number" name="tp[]" oninput="updateChanges(' + id + ')" required step="any" value="'+product.tp+'" min="0" class="form-control text-center" id="tp_' + id + '"></td>';
@@ -314,7 +326,6 @@
             });
 
             $("#totalQty").html(totalQty.toFixed(2));
-
             var discount = parseFloat($("#discount").val());
             var fright = parseFloat($("#fright").val());
             var fright1 = parseFloat($("#fright1").val());
