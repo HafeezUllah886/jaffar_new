@@ -55,8 +55,8 @@
                                                 <th scope="col" class="text-start">Customer Name</th>
                                                 <th scope="col" class="text-start">Order Booker</th>
                                                 <th scope="col">Date</th>
-                                                <th scope="col">Discount</th>
-                                                <th scope="col">Products Discount</th>
+                                                <th scope="col">Disc</th>
+                                                <th scope="col">P-Disc</th>
                                                 <th scope="col">Fright (-)</th>
                                                 <th scope="col">Fright (+)</th>
                                                 <th scope="col">WH</th>
