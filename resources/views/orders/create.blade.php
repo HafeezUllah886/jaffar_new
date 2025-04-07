@@ -141,6 +141,7 @@
                                         html += '<input type="hidden" step="any" id="amount_' + id + '" value="'+netPrice+'" name="amount[]">';
                                         html += '<h5 class="text-primary fs-18 mb-0"><span>'+ price +'</span></h5>';
                                     html += '</div>';
+                                    html += '<div> <h6>Stock: ' + product.stock + '</h6> </div>';
                                     html += '<div class="flex-grow-1 text-end"><h5 class="text-primary fs-18 mb-0"><span id="amountText_' + id + '">'+netPrice+'</span></h5></div>';
                                 html += '</div>';
                                 html += '<div class="row">';

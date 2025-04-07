@@ -354,7 +354,6 @@ class SalesController extends Controller
         $stocks = stock::select(DB::raw('SUM(cr) - SUM(db) AS balance'))
                   ->where('productID', $product->id)
                   ->get();
-
         $product->stock = getStock($id);
         return $product;
     }
