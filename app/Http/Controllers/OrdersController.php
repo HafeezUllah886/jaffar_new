@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\accounts;
+use App\Models\deliveryman;
 use App\Models\order_details;
 use App\Models\orders;
 use App\Models\products;
@@ -247,7 +248,8 @@ class OrdersController extends Controller
         $accounts = accounts::business()->get();
         $orderbookers = User::where('role', 'Orderbooker')->get();
         $order = orders::find($id);
-        return view('orders.sale', compact('products', 'units', 'customers', 'accounts', 'orderbookers', 'order'));
+        $deliverymen = deliveryman::all();
+        return view('orders.sale', compact('products', 'units', 'customers', 'accounts', 'orderbookers', 'order', 'deliverymen'));
     }
 
     public function getCustomer($id)
