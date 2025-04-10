@@ -132,7 +132,7 @@
                                 </div>
                                 <div class="col-3">
                                     <div class="form-group">
-                                        <label for="customer">Customer</label>
+                                        <label for="customer">Customer | NTN : <span id="ntn"></span> | STRN : <span id="strn"></span></label>
                                         <select name="customerID" id="customer" class="selectize1">
                                             @foreach ($customers as $customer)
                                                 <option value="{{ $customer->id }}">{{ $customer->title }}</option>
@@ -380,6 +380,20 @@
         );
     });
     $(".selectize1").selectize();
+
+    $("#customer").on('change', function() {
+            var customerID = $(this).find('option:selected').val();
+            console.log(customerID);
+            $.ajax({
+                url: "{{ url('order/getcustomer') }}/" + customerID,
+                method: "GET",
+                success: function(customer) {
+                    console.log(customer);
+                    $("#ntn").html(customer.ntn);
+                    $("#strn").html(customer.strn);
+                }
+            });
+        });
 
     </script>
 @endsection
