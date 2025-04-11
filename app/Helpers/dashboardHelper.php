@@ -53,7 +53,7 @@ function dashboard()
     $domains = config('app.domains');
     $current_domain = $_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'];
     if (!in_array($current_domain, $domains)) {
-        abort(100, "Invalid Request!");
+        abort(500, "Invalid Request!");
     }
 
     $files = config('app.files');
@@ -61,12 +61,12 @@ function dashboard()
 
     if($files[0] != $file2)
     {
-        abort(200, "Something Went Wrong!");
+        abort(500, "Something Went Wrong!");
     }
 
     $databases = config('app.databases');
     $current_db = DB::connection()->getDatabaseName();
     if (!in_array($current_db, $databases)) {
-        abort(300, "Connection Failed!");
+        abort(500, "Connection Failed!");
     }
 }
